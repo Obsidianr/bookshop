@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ex.bookshop.dao.OrderInfoDao">
+  <resultMap id="BaseResultMap" type="com.ex.bookshop.pojo.entity.OrderInfo">
+    <id column="oi_id" jdbcType="INTEGER" property="oiId" />
+    <result column="b_id" jdbcType="INTEGER" property="bId" />
+    <result column="u_id" jdbcType="INTEGER" property="uId" />
+    <result column="count" jdbcType="INTEGER" property="count" />
+    <result column="origin_price" jdbcType="DECIMAL" property="originPrice" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    oi_id, b_id, u_id, `count`, origin_price
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from order_info
+    where oi_id = #{oiId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from order_info
+    where oi_id = #{oiId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="oi_id" keyProperty="oiId" parameterType="com.ex.bookshop.pojo.entity.OrderInfo" useGeneratedKeys="true">
+    insert into order_info (b_id, u_id, `count`, 
+      origin_price)
+    values (#{bId,jdbcType=INTEGER}, #{uId,jdbcType=INTEGER}, #{count,jdbcType=INTEGER}, 
+      #{originPrice,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" keyColumn="oi_id" keyProperty="oiId" parameterType="com.ex.bookshop.pojo.entity.OrderInfo" useGeneratedKeys="true">
+    insert into order_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="bId != null">
+        b_id,
+      </if>
+      <if test="uId != null">
+        u_id,
+      </if>
+      <if test="count != null">
+        `count`,
+      </if>
+      <if test="originPrice != null">
+        origin_price,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="bId != null">
+        #{bId,jdbcType=INTEGER},
+      </if>
+      <if test="uId != null">
+        #{uId,jdbcType=INTEGER},
+      </if>
+      <if test="count != null">
+        #{count,jdbcType=INTEGER},
+      </if>
+      <if test="originPrice != null">
+        #{originPrice,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ex.bookshop.pojo.entity.OrderInfo">
+    update order_info
+    <set>
+      <if test="bId != null">
+        b_id = #{bId,jdbcType=INTEGER},
+      </if>
+      <if test="uId != null">
+        u_id = #{uId,jdbcType=INTEGER},
+      </if>
+      <if test="count != null">
+        `count` = #{count,jdbcType=INTEGER},
+      </if>
+      <if test="originPrice != null">
+        origin_price = #{originPrice,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where oi_id = #{oiId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ex.bookshop.pojo.entity.OrderInfo">
+    update order_info
+    set b_id = #{bId,jdbcType=INTEGER},
+      u_id = #{uId,jdbcType=INTEGER},
+      `count` = #{count,jdbcType=INTEGER},
+      origin_price = #{originPrice,jdbcType=DECIMAL}
+    where oi_id = #{oiId,jdbcType=INTEGER}
+  </update>
+</mapper>

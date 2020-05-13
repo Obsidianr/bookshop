@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ex.bookshop.dao.AdministratorDao">
+    <resultMap id="BaseResultMap" type="com.ex.bookshop.pojo.entity.Administrator">
+        <id column="a_id" jdbcType="INTEGER" property="id" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="password" jdbcType="VARCHAR" property="password" />
+        <result column="tel" jdbcType="VARCHAR" property="tel" />
+    </resultMap>
+    <sql id="Base_Column_List">
+    a_id, `name`, `password`, tel
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from admin
+        where a_id = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="selectBytel" resultType="com.ex.bookshop.pojo.entity.Administrator">
+        select <include refid="Base_Column_List"/> from admin where tel = #{phone}
+    </select>
+
+    <select id="findAllAdmin" resultType="com.ex.bookshop.pojo.entity.Administrator">
+        select <include refid="Base_Column_List"/> from admin
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from admin
+    where a_id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.ex.bookshop.pojo.entity.Administrator" useGeneratedKeys="true">
+    insert into admin (`name`, `password`, tel)
+    values (#{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.ex.bookshop.pojo.entity.Administrator" useGeneratedKeys="true">
+        insert into admin
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null">
+                `name`,
+            </if>
+            <if test="password != null">
+                `password`,
+            </if>
+            <if test="tel != null">
+                tel,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="tel != null">
+                #{tel,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.ex.bookshop.pojo.entity.Administrator">
+        update admin
+        <set>
+            <if test="name != null">
+                `name` = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                `password` = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="tel != null">
+                tel = #{tel,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where a_id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.ex.bookshop.pojo.entity.Administrator">
+    update admin
+    set `name` = #{name,jdbcType=VARCHAR},
+      `password` = #{password,jdbcType=VARCHAR},
+      tel = #{tel,jdbcType=VARCHAR}
+    where a_id = #{aId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ex.bookshop.dao.ShopCarDao">
+  <resultMap id="BaseResultMap" type="com.ex.bookshop.pojo.entity.ShopCar">
+    <id column="car_id" jdbcType="INTEGER" property="carId" />
+    <result column="u_id" jdbcType="INTEGER" property="uId" />
+    <result column="b_id" jdbcType="INTEGER" property="bId" />
+    <result column="count" jdbcType="INTEGER" property="count" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    car_id, u_id, b_id, `count`
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from shop_car
+    where car_id = #{carId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from shop_car
+    where car_id = #{carId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="car_id" keyProperty="carId" parameterType="com.ex.bookshop.pojo.entity.ShopCar" useGeneratedKeys="true">
+    insert into shop_car (u_id, b_id, `count`
+      )
+    values (#{uId,jdbcType=INTEGER}, #{bId,jdbcType=INTEGER}, #{count,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="car_id" keyProperty="carId" parameterType="com.ex.bookshop.pojo.entity.ShopCar" useGeneratedKeys="true">
+    insert into shop_car
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uId != null">
+        u_id,
+      </if>
+      <if test="bId != null">
+        b_id,
+      </if>
+      <if test="count != null">
+        `count`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uId != null">
+        #{uId,jdbcType=INTEGER},
+      </if>
+      <if test="bId != null">
+        #{bId,jdbcType=INTEGER},
+      </if>
+      <if test="count != null">
+        #{count,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ex.bookshop.pojo.entity.ShopCar">
+    update shop_car
+    <set>
+      <if test="uId != null">
+        u_id = #{uId,jdbcType=INTEGER},
+      </if>
+      <if test="bId != null">
+        b_id = #{bId,jdbcType=INTEGER},
+      </if>
+      <if test="count != null">
+        `count` = #{count,jdbcType=INTEGER},
+      </if>
+    </set>
+    where car_id = #{carId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ex.bookshop.pojo.entity.ShopCar">
+    update shop_car
+    set u_id = #{uId,jdbcType=INTEGER},
+      b_id = #{bId,jdbcType=INTEGER},
+      `count` = #{count,jdbcType=INTEGER}
+    where car_id = #{carId,jdbcType=INTEGER}
+  </update>
+</mapper>
