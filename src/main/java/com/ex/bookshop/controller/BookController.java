@@ -45,22 +45,9 @@ public class BookController {
     @RequestMapping("upload")
     @ResponseBody
     public JSONObject upload(MultipartFile file){
-        JSONObject jsonObject = new JSONObject();
-        JSONObject resUrl = new JSONObject();
-        imgName = bookService.savePic(file);
-        resUrl.put("src","imgs/"+imgName);
-        if(imgName == null){
-            jsonObject.put("code", 1);
-            jsonObject.put("msg","");
-            jsonObject.put("data",resUrl);
-            return jsonObject;
-        }else {
-            jsonObject.put("code", 0);
-            jsonObject.put("msg","上传成功");
-            jsonObject.put("data",resUrl);
-            return jsonObject;
-        }
-
+        JSONObject jsonObject = bookService.savePic(file);
+        imgName = jsonObject.get("src").toString();
+        return jsonObject;
     }
     /**
      *添加书籍
@@ -158,4 +145,13 @@ public class BookController {
         }
     }
 
+    @RequestMapping("showBook")
+    @ResponseBody
+    public JSONObject showBook(String id){
+        int typeId = Integer.parseInt(id);
+//        ModelAndView modelAndView = new ModelAndView("index");
+        JSONObject res = bookService.showBookByType(typeId);
+//        modelAndView.addObject("res",jsonObject);
+        return res;
+    }
 }

@@ -3,6 +3,7 @@ package com.ex.bookshop.service.impl;
 import com.ex.bookshop.dao.BookDao;
 import com.ex.bookshop.pojo.entity.Book;
 import com.ex.bookshop.service.BookService;
+import net.sf.json.JSONObject;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ClassUtils;
 import org.springframework.util.ResourceUtils;
@@ -31,24 +32,33 @@ public class BookServiceImpl implements BookService {
      * @return
      */
     @Override
-    public String savePic(MultipartFile file) {
+    public JSONObject savePic(MultipartFile file) {
         //获取文件名
         String fileName = file.getOriginalFilename();
         //获取文件后缀名
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
         //重新生成文件名
-        fileName = UUID.randomUUID()+suffixName;
+        fileName = "imgs\\"+UUID.randomUUID()+suffixName;
+        JSONObject jsonObject = new JSONObject();
+        JSONObject resUrl = new JSONObject();
         //指定本地文件夹存储图片
      //   String path = ClassUtils.getDefaultClassLoader().getResource("static").getPath();
-        String path = "H:\\IEDAWorkspace\\bookshop\\src\\main\\resources\\static\\imgs\\";
+        String path = "H:\\IEDAWorkspace\\bookshop\\src\\main\\resources\\static\\";
 
         try {
             //将图片保存到static/imgs文件夹里
             file.transferTo(new File(path+fileName));
-            return fileName;
+            resUrl.put("src",fileName);
+            jsonObject.put("code", 0);
+            jsonObject.put("msg","上传成功");
+            jsonObject.put("data",resUrl);
+            return jsonObject;
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
+            jsonObject.put("code", 1);
+            jsonObject.put("msg","");
+            jsonObject.put("data",resUrl);
+            return jsonObject;
         }
     }
 
@@ -112,5 +122,16 @@ public class BookServiceImpl implements BookService {
     public Book selectBookById(int bid) {
         Book book = bookDao.selectByPrimaryKey(bid);
         return book;
+    }
+
+    @Override
+    public JSONObject showBookByType(int typeId) {
+        String[] type = {"1","教育","文学","科技","人文","儿童"};
+        String bookType = type[typeId];
+        ArrayList<Book> bookList = bookDao.selectByType(bookType);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("res",true);
+        jsonObject.put("data",bookList);
+        return jsonObject;
     }
 }

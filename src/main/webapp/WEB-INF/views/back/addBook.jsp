@@ -20,11 +20,11 @@
                             <div class="layui-input-block" style="width: 190px">
                                 <select name="type" lay-filter="aihao">
                                     <option value=""></option>
-                                    <option value="0">写作</option>
-                                    <option value="1" selected="">阅读</option>
-                                    <option value="2">游戏</option>
-                                    <option value="3">音乐</option>
-                                    <option value="4">旅行</option>
+                                    <option value="教育">教育</option>
+                                    <option value="文学" selected="">文学</option>
+                                    <option value="科技">科技</option>
+                                    <option value="人文">人文</option>
+                                    <option value="儿童">儿童</option>
                                 </select>
                             </div>
                         </div>
@@ -104,8 +104,6 @@
     layui.use(['form', 'layedit', 'laydate','upload'], function(){
         var form = layui.form
             ,layer = layui.layer
-            ,layedit = layui.layedit
-            ,laydate = layui.laydate
             ,$ = layui.jquery
             ,upload = layui.upload;
         //普通图片上传

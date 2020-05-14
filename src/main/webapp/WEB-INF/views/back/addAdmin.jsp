@@ -48,16 +48,5 @@
         </div>
     </div>
 </div>
-
-<script>
-    layui.use(['form', 'layedit', 'laydate','upload'], function(){
-        var form = layui.form
-            ,layer = layui.layer
-            ,layedit = layui.layedit
-            ,laydate = layui.laydate
-            ,$ = layui.jquery
-
-    });
-</script>
 </body>
 </html>

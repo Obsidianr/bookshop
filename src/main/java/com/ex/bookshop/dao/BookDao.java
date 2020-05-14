@@ -20,4 +20,6 @@ public interface BookDao {
     int updateByPrimaryKey(Book record);
 
     ArrayList<Book> selectAll();
+
+    ArrayList<Book> selectByType(String bookType);
 }
