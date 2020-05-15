@@ -1,13 +1,18 @@
-package com.ex.bookshop.pojo.entity;
-
-import java.io.Serializable;
+package com.ex.bookshop.pojo.vo;
 
 /**
- * book
- * @author 
- */
-public class Book implements Serializable {
+ * @description:
+ * @author: Li Rui Qiang
+ * @create: 2020-05-15 13:49
+ **/
+
+public class ShopcartItem {
+
+    private Integer carId;
+
     private Integer bId;
+
+    private Integer count;
 
     private String bookName;
 
@@ -17,15 +22,17 @@ public class Book implements Serializable {
 
     private String publisher;
 
-    private String describe;
-
     private String type;
 
     private String img;
 
-    private Integer stock;
+    public Integer getCarId() {
+        return carId;
+    }
 
-    private static final long serialVersionUID = 1L;
+    public void setCarId(Integer carId) {
+        this.carId = carId;
+    }
 
     public Integer getbId() {
         return bId;
@@ -33,6 +40,14 @@ public class Book implements Serializable {
 
     public void setbId(Integer bId) {
         this.bId = bId;
+    }
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
     }
 
     public String getBookName() {
@@ -67,14 +82,6 @@ public class Book implements Serializable {
         this.publisher = publisher;
     }
 
-    public String getDescribe() {
-        return describe;
-    }
-
-    public void setDescribe(String describe) {
-        this.describe = describe;
-    }
-
     public String getType() {
         return type;
     }
@@ -91,11 +98,4 @@ public class Book implements Serializable {
         this.img = img;
     }
 
-    public Integer getStock() {
-        return stock;
-    }
-
-    public void setStock(Integer stock) {
-        this.stock = stock;
-    }
 }

@@ -2,6 +2,8 @@ package com.ex.bookshop.service.impl;
 
 import com.ex.bookshop.dao.BookDao;
 import com.ex.bookshop.pojo.entity.Book;
+import com.ex.bookshop.pojo.entity.ShopCar;
+import com.ex.bookshop.pojo.vo.ShopcartItem;
 import com.ex.bookshop.service.BookService;
 import net.sf.json.JSONObject;
 import org.springframework.stereotype.Service;
@@ -133,5 +135,10 @@ public class BookServiceImpl implements BookService {
         jsonObject.put("res",true);
         jsonObject.put("data",bookList);
         return jsonObject;
+    }
+
+    public ArrayList<Book> selectBookByIds(ArrayList<ShopCar> shopCars) {
+        ArrayList<Book> bookList = bookDao.selectByPrimaryKeys(shopCars);
+        return bookList;
     }
 }

@@ -1,7 +1,10 @@
 package com.ex.bookshop.service;
 
+import com.ex.bookshop.pojo.entity.Book;
 import com.ex.bookshop.pojo.entity.Users;
+import com.ex.bookshop.pojo.vo.ShopcartItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,7 +13,7 @@ import java.util.List;
  * @create: 2020-05-04 20:54
  **/
 public interface UserService {
-    boolean login(String phone, String password);
+    Integer login(String phone, String password);
 
     boolean addUser(Users user);
 
@@ -21,4 +24,8 @@ public interface UserService {
     Users selectUserById(int uid);
 
     boolean updateUserById(Users user);
+
+    ArrayList<ShopcartItem> findShopcartByUserid(Integer userid);
+
+    boolean delShopItemById(String id);
 }

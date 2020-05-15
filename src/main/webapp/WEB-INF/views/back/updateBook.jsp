@@ -27,12 +27,11 @@
                             <label class="layui-form-label">类型</label>
                             <div class="layui-input-block" style="width: 190px">
                                 <select name="type" lay-filter="aihao">
-                                    <option value=""></option>
-                                    <option value="0">写作</option>
-                                    <option value="1" selected="">阅读</option>
-                                    <option value="2">游戏</option>
-                                    <option value="3">音乐</option>
-                                    <option value="4">旅行</option>
+                                    <option value="教育">教育</option>
+                                    <option value="文学">文学</option>
+                                    <option value="科技" selected="">科技</option>
+                                    <option value="人文">人文</option>
+                                    <option value="儿童">儿童</option>
                                 </select>
                             </div>
                         </div>
@@ -72,7 +71,7 @@
                             <div class="layui-inline">
                                 <label class="layui-form-label">库存</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" name="count" value="${book.count}" class="layui-input" lay-verify="required">
+                                    <input type="text" name="count" value="${book.stock}" class="layui-input" lay-verify="required">
                                 </div>
                             </div>
                         </div>

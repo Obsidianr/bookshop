@@ -64,7 +64,7 @@
                             <div class="layui-inline">
                                 <label class="layui-form-label">库存</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" name="count"  class="layui-input" lay-verify="required">
+                                    <input type="text" name="stock"  class="layui-input" lay-verify="required">
                                 </div>
                             </div>
                         </div>

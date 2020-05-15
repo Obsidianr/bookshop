@@ -1,6 +1,8 @@
 package com.ex.bookshop.service;
 
 import com.ex.bookshop.pojo.entity.Book;
+import com.ex.bookshop.pojo.entity.ShopCar;
+import com.ex.bookshop.pojo.vo.ShopcartItem;
 import net.sf.json.JSONObject;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,4 +23,6 @@ public interface BookService {
     Book selectBookById(int bid);
 
     JSONObject showBookByType(int typeId);
+
+    public ArrayList<Book> selectBookByIds(ArrayList<ShopCar> shopCars);
 }

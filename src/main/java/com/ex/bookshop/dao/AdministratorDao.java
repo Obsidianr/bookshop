@@ -21,4 +21,6 @@ public interface AdministratorDao {
     int updateByPrimaryKey(Administrator record);
 
     List<Administrator> findAllAdmin();
+
+    Administrator selectBytel(String phone);
 }

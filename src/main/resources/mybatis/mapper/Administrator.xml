@@ -16,6 +16,7 @@
         from admin
         where a_id = #{id,jdbcType=INTEGER}
     </select>
+
     <select id="selectBytel" resultType="com.ex.bookshop.pojo.entity.Administrator">
         select <include refid="Base_Column_List"/> from admin where tel = #{phone}
     </select>

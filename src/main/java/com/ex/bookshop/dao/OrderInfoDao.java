@@ -1,7 +1,9 @@
 package com.ex.bookshop.dao;
 
 import com.ex.bookshop.pojo.entity.OrderInfo;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface OrderInfoDao {
     int deleteByPrimaryKey(Integer oiId);
 

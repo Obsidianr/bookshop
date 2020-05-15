@@ -80,6 +80,9 @@
                             "            <div style=\"color: orangered\">¥<span style=\"font-size: 20px\">"+book.price+"</span></div>\n" +
                             "        </div>");
                         bookdiv.append(bookItem);
+                        bookItem.click(function () {
+                            window.location="bookDetial?id="+book.bId;
+                        })
                     }
                 }
             })

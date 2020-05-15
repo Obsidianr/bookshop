@@ -2,7 +2,10 @@ package com.ex.bookshop.dao;
 
 
 import com.ex.bookshop.pojo.entity.ShopCar;
+import org.apache.ibatis.annotations.Mapper;
 
+import java.util.ArrayList;
+@Mapper
 public interface ShopCarDao {
     int deleteByPrimaryKey(Integer carId);
 
@@ -15,4 +18,6 @@ public interface ShopCarDao {
     int updateByPrimaryKeySelective(ShopCar record);
 
     int updateByPrimaryKey(ShopCar record);
+
+    ArrayList<ShopCar> selectByUserid(Integer userid);
 }

@@ -15,4 +15,6 @@ public interface AdminService {
     Administrator selectAdminById(int aid);
 
     boolean updateAdminById(Administrator administrator);
+
+    Integer login(String phone, String password);
 }

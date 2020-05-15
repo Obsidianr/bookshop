@@ -2,6 +2,7 @@ package com.ex.bookshop.service.impl;
 
 import com.ex.bookshop.dao.AdministratorDao;
 import com.ex.bookshop.pojo.entity.Administrator;
+import com.ex.bookshop.pojo.entity.Users;
 import com.ex.bookshop.service.AdminService;
 import org.springframework.stereotype.Service;
 
@@ -59,5 +60,18 @@ public class AdminServiceImpl implements AdminService {
         }else{
             return false;
         }
+    }
+
+    @Override
+    public Integer login(String phone, String password) {
+        Administrator admin =  administratorDao.selectBytel(phone);
+        if(admin == null){
+            return null;
+        }else{
+            if(admin.getPassword().equals(password)){
+                return admin.getId();
+            }
+        }
+        return null;
     }
 }

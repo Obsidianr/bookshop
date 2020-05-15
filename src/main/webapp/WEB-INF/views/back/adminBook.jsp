@@ -38,7 +38,7 @@
                         <td>${book.bookName}</td>
                         <td>${book.author}</td>
                         <td>${book.publisher}</td>
-                        <td>${book.count}</td>
+                        <td>${book.stock}</td>
                         <td>${book.price}</td>
                         <td>
                             <div class="layui-btn-group">

@@ -10,10 +10,10 @@
     <result column="describe" jdbcType="VARCHAR" property="describe" />
     <result column="type" jdbcType="VARCHAR" property="type" />
     <result column="img" jdbcType="VARCHAR" property="img" />
-    <result column="count" jdbcType="INTEGER" property="count" />
+    <result column="stock" jdbcType="INTEGER" property="stock" />
   </resultMap>
   <sql id="Base_Column_List">
-    b_id, book_name, price, author, publisher, `describe`, `type`, img, `count`
+    b_id, book_name, price, author, publisher, `describe`, `type`, img, `stock`
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -35,6 +35,15 @@
     from book
   </select>
 
+  <select id="selectByPrimaryKeys" parameterType="com.ex.bookshop.pojo.entity.ShopCar"  resultMap="BaseResultMap">
+    select
+    *
+    from book  where b_id in
+    <foreach collection="ids" open="(" close=")" separator="," item="shopcart">
+      #{shopcart.bId}
+    </foreach>
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from book
     where b_id = #{bId,jdbcType=INTEGER}
@@ -42,10 +51,10 @@
   <insert id="insert" keyColumn="b_id" keyProperty="bId" parameterType="com.ex.bookshop.pojo.entity.Book" useGeneratedKeys="true">
     insert into book (book_name, price, author, 
       publisher, `describe`, `type`, 
-      img, `count`)
+      img, `stock`)
     values (#{bookName,jdbcType=VARCHAR}, #{price,jdbcType=DOUBLE}, #{author,jdbcType=VARCHAR}, 
       #{publisher,jdbcType=VARCHAR}, #{describe,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
-      #{img,jdbcType=VARCHAR}, #{count,jdbcType=INTEGER})
+      #{img,jdbcType=VARCHAR}, #{stock,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" keyColumn="b_id" keyProperty="bId" parameterType="com.ex.bookshop.pojo.entity.Book" useGeneratedKeys="true">
     insert into book
@@ -71,8 +80,8 @@
       <if test="img != null">
         img,
       </if>
-      <if test="count != null">
-        `count`,
+      <if test="stock != null">
+        `stock`,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -97,8 +106,8 @@
       <if test="img != null">
         #{img,jdbcType=VARCHAR},
       </if>
-      <if test="count != null">
-        #{count,jdbcType=INTEGER},
+      <if test="stock != null">
+        #{stock,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -126,8 +135,8 @@
       <if test="img != null">
         img = #{img,jdbcType=VARCHAR},
       </if>
-      <if test="count != null">
-        `count` = #{count,jdbcType=INTEGER},
+      <if test="stock != null">
+        `stock` = #{stock,jdbcType=INTEGER},
       </if>
     </set>
     where b_id = #{bId,jdbcType=INTEGER}
@@ -141,7 +150,7 @@
       `describe` = #{describe,jdbcType=VARCHAR},
       `type` = #{type,jdbcType=VARCHAR},
       img = #{img,jdbcType=VARCHAR},
-      `count` = #{count,jdbcType=INTEGER}
+      `stock` = #{stock,jdbcType=INTEGER}
     where b_id = #{bId,jdbcType=INTEGER}
   </update>
 </mapper>

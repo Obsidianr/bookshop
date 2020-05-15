@@ -145,13 +145,24 @@ public class BookController {
         }
     }
 
+    /**
+     * 首页按类型展示书籍
+     * @param id
+     * @return
+     */
     @RequestMapping("showBook")
     @ResponseBody
     public JSONObject showBook(String id){
         int typeId = Integer.parseInt(id);
-//        ModelAndView modelAndView = new ModelAndView("index");
         JSONObject res = bookService.showBookByType(typeId);
-//        modelAndView.addObject("res",jsonObject);
         return res;
+    }
+
+    @RequestMapping("bookDetial")
+    public ModelAndView bookDetial(Integer id){
+        Book book = bookService.selectBookById(id);
+        ModelAndView modelAndView = new ModelAndView("front/showBook");
+        modelAndView.addObject("book",book);
+        return modelAndView;
     }
 }

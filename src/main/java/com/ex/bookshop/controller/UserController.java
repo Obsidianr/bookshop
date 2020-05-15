@@ -2,13 +2,21 @@ package com.ex.bookshop.controller;
 
 import com.ex.bookshop.pojo.entity.Book;
 import com.ex.bookshop.pojo.entity.Users;
+import com.ex.bookshop.pojo.vo.ShopcartItem;
 import com.ex.bookshop.service.UserService;
+import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -113,6 +121,46 @@ public class UserController {
             return modelAndView;
         }else{
             modelAndView.addObject("Msg","<script>alert('修改失败！');</script>");
+            return modelAndView;
+        }
+    }
+
+    /**
+     * 根据用户id显示用户购物车
+     * @return
+     */
+    @RequestMapping("shopcartPage")
+    public ModelAndView showShopcartPage(ModelAndView modelAndView, String Msg){
+        Integer userid = (Integer)((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest().getSession().getAttribute("userid");
+        if(userid == null){
+            modelAndView = new ModelAndView("front/login");
+        }else{
+            modelAndView = new ModelAndView("front/shopcart");
+            ArrayList<ShopcartItem> shoppingList = userService.findShopcartByUserid(userid);
+            if(shoppingList == null){
+                modelAndView.addObject("msg","购物车空空如也！");
+            }else{
+
+                modelAndView.addObject("shoppingList",shoppingList);
+                modelAndView.addObject("shopCount",shoppingList.size());
+            }
+
+        }
+        if(Msg != null){
+            modelAndView.addObject("Msg",Msg);
+        }
+        return modelAndView;
+    }
+
+    @RequestMapping("delshopItem")
+    public ModelAndView delshopItem(String id){
+        ModelAndView modelAndView = new ModelAndView("redirect:shopcartPage");
+        boolean res = userService.delShopItemById(id);
+        if(res){
+            modelAndView.addObject("Msg","<script>alert('删除成功！');</script>");
+            return modelAndView;
+        }else{
+            modelAndView.addObject("Msg","<script>alert('删除失败！');</script>");
             return modelAndView;
         }
     }

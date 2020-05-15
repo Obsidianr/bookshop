@@ -1,7 +1,10 @@
 package com.ex.bookshop.dao;
 
 import com.ex.bookshop.pojo.entity.Book;
+import com.ex.bookshop.pojo.entity.ShopCar;
+import com.ex.bookshop.pojo.vo.ShopcartItem;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.ArrayList;
 
@@ -22,4 +25,6 @@ public interface BookDao {
     ArrayList<Book> selectAll();
 
     ArrayList<Book> selectByType(String bookType);
+
+    ArrayList<Book> selectByPrimaryKeys(@Param("ids") ArrayList<ShopCar> shopCars);
 }
