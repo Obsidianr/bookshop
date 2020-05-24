@@ -1,6 +1,8 @@
 package com.ex.bookshop.controller;
 
 import com.ex.bookshop.pojo.entity.Administrator;
+import com.ex.bookshop.pojo.entity.Book;
+import com.ex.bookshop.pojo.entity.BookOrder;
 import com.ex.bookshop.pojo.entity.Users;
 import com.ex.bookshop.service.AdminService;
 import org.springframework.stereotype.Controller;
@@ -9,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -114,5 +118,49 @@ public class AdminController {
             modelAndView.addObject("Msg","<script>alert('修改失败！');</script>");
             return modelAndView;
         }
+    }
+
+    /**
+     * 确认订单页面
+     * @param model
+     * @return
+     */
+    @RequestMapping("checkOrderPage")
+    public String checkOrder( Model model,String Msg){
+        List<BookOrder> orderList = adminService.getCheckOrder();
+        model.addAttribute("olist",orderList);
+        if(Msg != null){
+            model.addAttribute("Msg",Msg);
+        }
+        return "back/confirmOrder";
+    }
+
+    /**
+     * 确认订单
+     * @param id
+     * @return
+     */
+    @RequestMapping("orderConfirm")
+    public ModelAndView orderConfirm(Integer id, HttpSession session){
+        ModelAndView modelAndView = new ModelAndView("redirect:checkOrderPage");
+        boolean res = adminService.confirmOrder(id);
+        if(res){
+            session.setAttribute("checkOrderCount",(Integer)session.getAttribute("checkOrderCount")-1);
+            return modelAndView;
+        }else {
+           modelAndView.addObject("Msg","<script>alert('提交失败！');</script>!");
+            return modelAndView;
+        }
+    }
+
+    /**
+     * 订单详情
+     * @return
+     */
+    @RequestMapping("orderDetailPage")
+    public String orderDetailPage(Integer id, Model model){
+        List<Book> bookList = adminService.getOrderDetailById(id);
+        model.addAttribute("bookList",bookList);
+        return "back/orderDetailPage";
     }
 }

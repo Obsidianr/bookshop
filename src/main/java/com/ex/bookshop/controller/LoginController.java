@@ -1,6 +1,8 @@
 package com.ex.bookshop.controller;
 
+import com.ex.bookshop.pojo.entity.Administrator;
 import com.ex.bookshop.service.AdminService;
+import com.ex.bookshop.service.ShopCartService;
 import com.ex.bookshop.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +28,8 @@ public class LoginController {
 
     @Resource
     AdminService adminService;
+    @Resource
+    ShopCartService shopCartService;
 
     /**
      * 跳转登录页面
@@ -43,13 +47,13 @@ public class LoginController {
      * @return
      */
     @RequestMapping("doLogin")
-    String login(HttpServletRequest httpServletRequest,String phone, String password, String admin, Model model){
-        Pattern p = Pattern.compile("^((13[0-9])|(17[0-1,6-8])|(15[^4,\\\\D])|(18[0-9]))\\d{8}$");
-        Matcher m = p.matcher(phone);
-        if(!m.matches()){
-            model.addAttribute("errorMsg", "请输入正确的手机号！");
-            return "front/login";
-        }
+    String login(HttpServletRequest httpServletRequest,String phone, String password, String admin, Model model,HttpSession session){
+//        Pattern p = Pattern.compile("^((13[0-9])|(17[0-1,6-8])|(15[^4,\\\\D])|(18[0-9]))\\d{8}$");
+//        Matcher m = p.matcher(phone);
+//        if(!m.matches()){
+//            model.addAttribute("errorMsg", "请输入正确的手机号！");
+//            return "front/login";
+//        }
         if(password == null || password == ""){
             model.addAttribute("errorMsg", "请输入密码！");
             return "front/login";
@@ -59,8 +63,8 @@ public class LoginController {
         if(admin == null){
             Integer userid = userService.login(phone,password);
             if(userid != null){
-                HttpSession session = httpServletRequest.getSession();
                 session.setAttribute("userid",userid);
+                session.setAttribute("shopCount",shopCartService.getShopCount(userid));
                 session.setMaxInactiveInterval(1000);
                 return "index";
             }else{
@@ -69,10 +73,11 @@ public class LoginController {
             }
 
         }else{
-            Integer adminId = adminService.login(phone,password);
-            if(adminId != null){
-                HttpSession session = httpServletRequest.getSession();
-                session.setAttribute("adminId",adminId);
+            Administrator administrator = adminService.login(phone,password);
+            if(administrator != null){
+                Integer checkOrderCount = adminService.getCheckOrderCount();
+                session.setAttribute("checkOrderCount",checkOrderCount);
+                session.setAttribute("adminName",administrator.getName());
                 session.setMaxInactiveInterval(1000);
                 return "back/backHome";
             }else {
@@ -81,6 +86,4 @@ public class LoginController {
             }
         }
     }
-
-
 }

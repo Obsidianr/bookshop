@@ -6,26 +6,23 @@
 </head>
 <link rel="stylesheet" href="/static/layui/css/layui.css">
 <script type="text/javascript" src="/static/layui/layui.js"></script>
-<body>
-    </div>
+<body >
     <div style="width: 100%">
         <div style="text-align: right">
-            <ul class="layui-nav">
-
+            <ul class="layui-nav" style="margin-right: 20px">
                 <li class="layui-nav-item">
-                    <a href=""><img src="//t.cn/RCzsdCq" class="layui-nav-img">我</a>
+                    <a href=""><img src="//t.cn/RCzsdCq" class="layui-nav-img">${sessionScope.adminName}</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">修改信息</a></dd>
-                        <dd><a href="javascript:;">退出</a></dd>
+                        <dd><a href="index;">退出</a></dd>
                     </dl>
                 </li>
             </ul>
         </div>
+    </div>
 <script src="//res.layui.com/layui/dist/layui.js" charset="utf-8"></script>
 <script>
     layui.use('element', function(){
         var element = layui.element; //导航的hover效果、二级菜单等功能，需要依赖element模块
-
         //监听导航点击
         element.on('nav(demo)', function(elem){
             //console.log(elem)
@@ -34,3 +31,4 @@
     });
 </script>
 </body>
+</html>

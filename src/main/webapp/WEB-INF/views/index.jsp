@@ -16,32 +16,12 @@
         color: red;
         cursor: pointer;
     }
+    .bookitem:hover{
+        cursor: pointer;
+    }
 </style>
 <body>
-
-<div style="display: flex;padding-bottom: 5px;align-items: center">
-    <div style="width: 35%;margin-left: 40px">
-        <div style="display: flex;background:#86c5fa;width: 140px">
-            <img src="/imgs/logo.jpg" style="width: 40px;height: 40px">
-            <span style="font-size: 140%;margin-top: 8px;color: aliceblue">小瓜书店</span>
-        </div>
-    </div>
-    <div style="width: 50%;display: flex;border: solid blue">
-        <div style="width: 80%">
-            <input type="text" style="height: 30px;width: 100%">
-        </div>
-        <div style="color: aliceblue;background: darkblue;padding: 5px 20px;width: 20%;text-align: center">
-            搜索
-        </div>
-    </div>
-    <div style="cursor: pointer; color: darkblue;width: 20%;text-align: center;background: darkgray;border: solid lightgray 1px;padding: 5px;margin-left: 30px;margin-right: 30px">
-        我的购物车(1)
-    </div>
-    <div id="loginBtn" onclick="window.location='loginPage'" style=" width: 50px;text-align: center;background: darkgray;border: solid lightgray 1px;padding: 5px;margin-left: 30px;margin-right: 30px">
-        登录
-    </div>
-</div>
-
+<jsp:include page="front/frontTop.jsp"></jsp:include>
 <div style="display: flex;margin: 20px 150px;" >
     <div id="booktype" style="width: 20%;border: solid lightgray 1px;background: #9F9F9F">
         <div class="typeBtn" id = "type-1" style="padding: 10px; text-align: center; border: solid lightgray 1px" ><h3>教  育</h3></div>
@@ -73,7 +53,7 @@
                     for(let x=0; x<data.length; x++){
                         let book = data[x];
                         let bookItem = $(
-                            "<div style=\" width: 20%; padding: 10px;border: solid lightgray 1px;box-shadow: 0 0 4px lightgray;margin: 5px \">\n" +
+                            "<div class=\"bookitem\" style=\" width: 20%; padding: 10px;border: solid lightgray 1px;box-shadow: 0 0 4px lightgray;margin: 5px \">\n" +
                             "            <div style=\"text-align: center\"><img src='"+ book.img + "'></div>\n" +
                             "            <div style=\"padding: 2px;cursor: pointer\">"+book.bookName+" </div>\n" +
                             "            <div style=\"padding: 2px;color: lightgray;font-size: 12px\">"+book.publisher+"</div>\n" +
@@ -81,7 +61,7 @@
                             "        </div>");
                         bookdiv.append(bookItem);
                         bookItem.click(function () {
-                            window.location="bookDetial?id="+book.bId;
+                            window.location="bookDetail?id="+book.bId;
                         })
                     }
                 }

@@ -3,6 +3,8 @@ package com.ex.bookshop.dao;
 import com.ex.bookshop.pojo.entity.OrderInfo;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface OrderInfoDao {
     int deleteByPrimaryKey(Integer oiId);
@@ -16,4 +18,6 @@ public interface OrderInfoDao {
     int updateByPrimaryKeySelective(OrderInfo record);
 
     int updateByPrimaryKey(OrderInfo record);
+
+    List<OrderInfo> selectByOrderId(Integer id);
 }

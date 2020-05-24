@@ -1,7 +1,10 @@
 package com.ex.bookshop.service;
 
 import com.ex.bookshop.pojo.entity.Administrator;
+import com.ex.bookshop.pojo.entity.Book;
+import com.ex.bookshop.pojo.entity.BookOrder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface AdminService {
@@ -16,5 +19,13 @@ public interface AdminService {
 
     boolean updateAdminById(Administrator administrator);
 
-    Integer login(String phone, String password);
+    Administrator login(String phone, String password);
+
+    Integer getCheckOrderCount();
+
+    List<BookOrder> getCheckOrder();
+
+    boolean confirmOrder(Integer id);
+
+    List<Book> getOrderDetailById(Integer id);
 }

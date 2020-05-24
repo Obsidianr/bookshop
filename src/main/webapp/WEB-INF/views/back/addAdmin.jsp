@@ -9,9 +9,10 @@
 <body style="background:#393D49">
 <div style="display: flex">
     <jsp:include page="left.jsp"></jsp:include>
-    <div>
+    <div  style="width: 80%;">
         <jsp:include page="top.jsp"></jsp:include>
         <div style="background: #eaeaea;display: flex;padding-top: 10px;height: 600px">
+            <h2>添加管理员</h2>
             <form class="layui-form" action="addAdmin" >
                         <div class="layui-form-item">
                             <div class="layui-inline">

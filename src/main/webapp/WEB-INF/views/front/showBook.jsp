@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="/layui/css/layui.css">
 <script type="text/javascript" src="/layui/layui.js"></script>
 <body class="layui-col-xs6 layui-col-md8 layui-col-md-offset2">
-<jsp:include page="frontTop.jsp"></jsp:include>
+<jsp:include page="frontTop.jsp" flush="true"></jsp:include>
 <div class="layui-row">
     <div class="layui-col-xs12 layui-col-md4 layui-col-md-offset2">
         <div class="grid-demo grid-demo-bg1">
@@ -39,16 +39,13 @@
     <div class="layui-col-xs6 layui-col-md8 layui-col-md-offset2 " >
         <div class="grid-demo grid-demo-bg2" style="border: solid gainsboro 1px;margin: 10px;padding: 10px">${book.describe}</div>
     </div>
+    ${Msg}
 </div>
 <script>
-    layui.use(['form', 'layedit', 'laydate','upload'], function(){
-        var form = layui.form
-            ,layer = layui.layer
-            ,layedit = layui.layedit
-            ,laydate = layui.laydate
-            ,$ = layui.jquery
+function shopcart(bid) {
 
-    });
+    window.location="addShopToCart?id="+bid
+}
 </script>
 </body>
 </html>

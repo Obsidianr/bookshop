@@ -20,4 +20,6 @@ public interface ShopCarDao {
     int updateByPrimaryKey(ShopCar record);
 
     ArrayList<ShopCar> selectByUserid(Integer userid);
+
+    ShopCar selectByUseridAndBid(Integer userid, Integer bid);
 }

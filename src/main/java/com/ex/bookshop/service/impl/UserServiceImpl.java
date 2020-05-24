@@ -28,12 +28,6 @@ public class UserServiceImpl implements UserService {
     @Resource
     UsersDao usersDao;
 
-    @Resource
-    ShopCarDao shopCarDao;
-
-    @Resource
-    BookServiceImpl bookService;
-
 
     /**
      * 验证用户是否存在
@@ -120,49 +114,5 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    /**
-     * 根据用户id查询其购物车
-     * @param userid
-     * @return
-     */
-    @Override
-    public ArrayList<ShopcartItem> findShopcartByUserid(Integer userid) {
-        ArrayList<ShopcartItem> shopList = new ArrayList<>();
 
-        ArrayList<ShopCar> shopCars = shopCarDao.selectByUserid(userid);
-        if(shopCars == null){
-            return null;
-        }else{
-            ArrayList<Book> bookList = bookService.selectBookByIds(shopCars);
-            for (int i=0;i<shopCars.size();i++){
-                ShopcartItem item = new ShopcartItem();
-                item.setCarId(shopCars.get(i).getCarId());
-                item.setbId(shopCars.get(i).getbId());
-                item.setBookName(bookList.get(i).getBookName());
-                item.setAuthor(bookList.get(i).getAuthor());
-                item.setPrice(bookList.get(i).getPrice());
-                item.setImg(bookList.get(i).getImg());
-                item.setCount(shopCars.get(i).getCount());
-                item.setPublisher(bookList.get(i).getPublisher());
-                shopList.add(item);
-            }
-            return shopList;
-        }
-    }
-
-    /**
-     * 按id删除用户购物车中的项目
-     * @param id
-     * @return
-     */
-    @Override
-    public boolean delShopItemById(String id) {
-        int cid = Integer.parseInt(id);
-        int res = shopCarDao.deleteByPrimaryKey(cid);
-        if(res == 1){
-            return true;
-        }else{
-            return false;
-        }
-    }
 }

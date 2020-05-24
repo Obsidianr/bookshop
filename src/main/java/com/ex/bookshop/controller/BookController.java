@@ -158,11 +158,19 @@ public class BookController {
         return res;
     }
 
-    @RequestMapping("bookDetial")
-    public ModelAndView bookDetial(Integer id){
+    /**
+     * 书籍详情展示
+     * @param id
+     * @return
+     */
+    @RequestMapping("bookDetail")
+    public ModelAndView bookDetial(Integer id, String Msg){
         Book book = bookService.selectBookById(id);
         ModelAndView modelAndView = new ModelAndView("front/showBook");
         modelAndView.addObject("book",book);
+        if(Msg != null){
+            modelAndView.addObject("Msg",Msg);
+        }
         return modelAndView;
     }
 }

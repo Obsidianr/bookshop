@@ -25,7 +25,5 @@ public interface UserService {
 
     boolean updateUserById(Users user);
 
-    ArrayList<ShopcartItem> findShopcartByUserid(Integer userid);
 
-    boolean delShopItemById(String id);
 }

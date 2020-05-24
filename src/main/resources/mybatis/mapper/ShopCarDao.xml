@@ -24,6 +24,13 @@
     where u_id = #{uId,jdbcType=INTEGER}
   </select>
 
+  <select id="selectByUseridAndBid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from shop_car
+    where u_id = #{userid,jdbcType=INTEGER} and b_id = #{bid,jdbcType=INTEGER}
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from shop_car
     where car_id = #{carId,jdbcType=INTEGER}

@@ -12,13 +12,13 @@ public class OrderInfo implements Serializable {
 
     private Integer bId;
 
-    private Integer uId;
+    private Integer oId;
 
     private Integer count;
 
-    private BigDecimal originPrice;
+    private double originPrice;
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionoId = 1L;
 
     public Integer getOiId() {
         return oiId;
@@ -36,12 +36,12 @@ public class OrderInfo implements Serializable {
         this.bId = bId;
     }
 
-    public Integer getuId() {
-        return uId;
+    public Integer getoId() {
+        return oId;
     }
 
-    public void setuId(Integer uId) {
-        this.uId = uId;
+    public void setoId(Integer oId) {
+        this.oId = oId;
     }
 
     public Integer getCount() {
@@ -52,11 +52,11 @@ public class OrderInfo implements Serializable {
         this.count = count;
     }
 
-    public BigDecimal getOriginPrice() {
+    public double getOriginPrice() {
         return originPrice;
     }
 
-    public void setOriginPrice(BigDecimal originPrice) {
+    public void setOriginPrice(double originPrice) {
         this.originPrice = originPrice;
     }
 }

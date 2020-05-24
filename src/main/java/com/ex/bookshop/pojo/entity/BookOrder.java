@@ -13,15 +13,26 @@ public class BookOrder implements Serializable {
 
     private String consignee;
 
-    private Integer count;
-
     private Double payment;
 
-    private String time;
+    private String createTime;
 
     private String consigneeAdress;
 
     private String consigneeTel;
+
+    private String finishTime;
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
+    }
+
+    private Integer state;
+
 
     private static final long serialVersionUID = 1L;
 
@@ -32,6 +43,7 @@ public class BookOrder implements Serializable {
     public void setoId(Integer oId) {
         this.oId = oId;
     }
+
 
     public Integer getuId() {
         return uId;
@@ -49,13 +61,6 @@ public class BookOrder implements Serializable {
         this.consignee = consignee;
     }
 
-    public Integer getCount() {
-        return count;
-    }
-
-    public void setCount(Integer count) {
-        this.count = count;
-    }
 
     public Double getPayment() {
         return payment;
@@ -65,12 +70,12 @@ public class BookOrder implements Serializable {
         this.payment = payment;
     }
 
-    public String getTime() {
-        return time;
+    public String getcreateTime() {
+        return createTime;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setcreateTime(String time) {
+        this.createTime = time;
     }
 
     public String getConsigneeAdress() {
@@ -87,5 +92,13 @@ public class BookOrder implements Serializable {
 
     public void setConsigneeTel(String consigneeTel) {
         this.consigneeTel = consigneeTel;
+    }
+
+    public String getFinishTime() {
+        return finishTime;
+    }
+
+    public void setFinishTime(String finishTime) {
+        this.finishTime = finishTime;
     }
 }

@@ -9,9 +9,9 @@
 <body style="background:#393D49">
 <div style="display: flex; background: #393D49">
     <jsp:include page="left.jsp"></jsp:include>
-    <div>
+    <div style="width: 80%;">
         <jsp:include page="top.jsp"></jsp:include>
-        <div style="width: 80%; border: solid red">
+        <div style="width: 100%; border: solid red">
             <div style="border: solid red">
                 <table class="layui-table">
                     <colgroup>

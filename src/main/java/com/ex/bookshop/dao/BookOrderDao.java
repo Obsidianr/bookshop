@@ -3,6 +3,8 @@ package com.ex.bookshop.dao;
 import com.ex.bookshop.pojo.entity.BookOrder;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface BookOrderDao {
     int deleteByPrimaryKey(Integer oId);
@@ -16,4 +18,8 @@ public interface BookOrderDao {
     int updateByPrimaryKeySelective(BookOrder record);
 
     int updateByPrimaryKey(BookOrder record);
+
+    BookOrder selectByUidAndCreateTime(Integer uId, String createTime);
+
+    List<BookOrder> selectUncheckedOrder();
 }

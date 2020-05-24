@@ -12,7 +12,7 @@
 
 <div style="display: flex">
     <jsp:include page="left.jsp"></jsp:include>
-    <div>
+    <div style="width: 80%;">
         <jsp:include page="top.jsp"></jsp:include>
         <div style="background: #eaeaea;width: 90%;margin: 10px;height: 600px">
             <table class="layui-table" style="padding:10px">

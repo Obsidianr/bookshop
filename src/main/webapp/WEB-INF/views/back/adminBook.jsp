@@ -11,7 +11,7 @@
 
 <div style="display: flex">
     <jsp:include page="left.jsp"></jsp:include>
-    <div>
+    <div style="width: 80%;">
         <jsp:include page="top.jsp"></jsp:include>
         <div style="background: #eaeaea;height: 600px;margin: 10px">
             <table class="layui-table">
@@ -71,17 +71,5 @@
     }
 </script>
 
-<%--<script>--%>
-<%--    layui.use(['laypage', 'layer'], function() {--%>
-<%--        var laypage = layui.laypage--%>
-<%--            , layer = layui.layer;--%>
-
-<%--        //总页数低于页码总数--%>
-<%--        laypage.render({--%>
-<%--            elem: 'demo0'--%>
-<%--            , count: 50 //数据总数--%>
-<%--        });--%>
-<%--    });--%>
-<%--</script>--%>
 </body>
 </html>

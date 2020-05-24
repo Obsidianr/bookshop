@@ -34,7 +34,7 @@
             <li class="layui-nav-item">
                 <a href="javascript:;">订单管理</a>
                 <dl class="layui-nav-child">
-                    <dd><a href="checkOrderPage">确认订单<span class="layui-badge">9</span></a></dd>
+                    <dd><a href="checkOrderPage">确认订单<span class="layui-badge">${sessionScope.checkOrderCount}</span></a></dd>
                     <dd><a href="">查询订单</a></dd>
                 </dl>
             </li>

@@ -5,14 +5,15 @@
     <id column="o_id" jdbcType="INTEGER" property="oId" />
     <result column="u_id" jdbcType="INTEGER" property="uId" />
     <result column="consignee" jdbcType="VARCHAR" property="consignee" />
-    <result column="count" jdbcType="INTEGER" property="count" />
     <result column="payment" jdbcType="DOUBLE" property="payment" />
-    <result column="time" jdbcType="VARCHAR" property="time" />
+    <result column="create_time" jdbcType="VARCHAR" property="createTime" />
     <result column="consignee_adress" jdbcType="VARCHAR" property="consigneeAdress" />
     <result column="consignee_tel" jdbcType="VARCHAR" property="consigneeTel" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="finish_time" jdbcType="VARCHAR" property="finishTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    o_id, u_id, consignee, `count`, payment, `time`, consignee_adress, consignee_tel
+    o_id, u_id, consignee, payment, `create_time`, consignee_adress, consignee_tel, finish_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -20,17 +21,32 @@
     from book_order
     where o_id = #{oId,jdbcType=INTEGER}
   </select>
+
+  <select id="selectByUidAndCreateTime"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from book_order
+    where u_id = #{uId,jdbcType=INTEGER} and create_time = #{createTime,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectUncheckedOrder"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from book_order
+    where state = 1
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from book_order
     where o_id = #{oId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="o_id" keyProperty="oId" parameterType="com.ex.bookshop.pojo.entity.BookOrder" useGeneratedKeys="true">
-    insert into book_order (u_id, consignee, `count`, 
-      payment, `time`, consignee_adress, 
-      consignee_tel)
-    values (#{uId,jdbcType=INTEGER}, #{consignee,jdbcType=VARCHAR}, #{count,jdbcType=INTEGER}, 
-      #{payment,jdbcType=DOUBLE}, #{time,jdbcType=VARCHAR}, #{consigneeAdress,jdbcType=VARCHAR}, 
-      #{consigneeTel,jdbcType=VARCHAR})
+    insert into book_order ( u_id, consignee,
+      payment, `create_time`, consignee_adress,
+      consignee_tel, state, finish_time)
+    values (#{uId,jdbcType=INTEGER}, #{consignee,jdbcType=VARCHAR},
+      #{payment,jdbcType=DOUBLE}, #{createTime,jdbcType=VARCHAR}, #{consigneeAdress,jdbcType=VARCHAR},
+      #{consigneeTel,jdbcType=VARCHAR}, #{state, jdbcType=INTEGER},  #{finishTime,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="o_id" keyProperty="oId" parameterType="com.ex.bookshop.pojo.entity.BookOrder" useGeneratedKeys="true">
     insert into book_order
@@ -41,20 +57,23 @@
       <if test="consignee != null">
         consignee,
       </if>
-      <if test="count != null">
-        `count`,
-      </if>
       <if test="payment != null">
         payment,
       </if>
-      <if test="time != null">
-        `time`,
+      <if test="createTime != null">
+        `create_time`,
       </if>
       <if test="consigneeAdress != null">
         consignee_adress,
       </if>
       <if test="consigneeTel != null">
         consignee_tel,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="finishTime != null">
+        finish_time,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -64,20 +83,23 @@
       <if test="consignee != null">
         #{consignee,jdbcType=VARCHAR},
       </if>
-      <if test="count != null">
-        #{count,jdbcType=INTEGER},
-      </if>
       <if test="payment != null">
         #{payment,jdbcType=DOUBLE},
       </if>
-      <if test="time != null">
-        #{time,jdbcType=VARCHAR},
+      <if test="createTime != null">
+        #{create_time,jdbcType=VARCHAR},
       </if>
       <if test="consigneeAdress != null">
         #{consigneeAdress,jdbcType=VARCHAR},
       </if>
       <if test="consigneeTel != null">
         #{consigneeTel,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state, jdbcType=INTEGER},
+      </if>
+      <if test="finishTime != null">
+        #{finishTime,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -90,20 +112,23 @@
       <if test="consignee != null">
         consignee = #{consignee,jdbcType=VARCHAR},
       </if>
-      <if test="count != null">
-        `count` = #{count,jdbcType=INTEGER},
-      </if>
       <if test="payment != null">
         payment = #{payment,jdbcType=DOUBLE},
       </if>
-      <if test="time != null">
-        `time` = #{time,jdbcType=VARCHAR},
+      <if test="createTime != null">
+        `create_time` = #{createTime,jdbcType=VARCHAR},
       </if>
       <if test="consigneeAdress != null">
         consignee_adress = #{consigneeAdress,jdbcType=VARCHAR},
       </if>
       <if test="consigneeTel != null">
         consignee_tel = #{consigneeTel,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        state = #{state, jdbcType=INTEGER},
+      </if>
+      <if test="finishTime != null">
+        `finish_time` = #{finishTime,jdbcType=VARCHAR},
       </if>
     </set>
     where o_id = #{oId,jdbcType=INTEGER}
@@ -112,11 +137,12 @@
     update book_order
     set u_id = #{uId,jdbcType=INTEGER},
       consignee = #{consignee,jdbcType=VARCHAR},
-      `count` = #{count,jdbcType=INTEGER},
       payment = #{payment,jdbcType=DOUBLE},
-      `time` = #{time,jdbcType=VARCHAR},
+      `create_time` = #{createTime,jdbcType=VARCHAR},
       consignee_adress = #{consigneeAdress,jdbcType=VARCHAR},
-      consignee_tel = #{consigneeTel,jdbcType=VARCHAR}
+      consignee_tel = #{consigneeTel,jdbcType=VARCHAR},
+      state = #{state, jdbcType=INTEGER},
+      `finish_time` = #{finishTime,jdbcType=VARCHAR}
     where o_id = #{oId,jdbcType=INTEGER}
   </update>
 </mapper>

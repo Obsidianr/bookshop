@@ -4,12 +4,12 @@
   <resultMap id="BaseResultMap" type="com.ex.bookshop.pojo.entity.OrderInfo">
     <id column="oi_id" jdbcType="INTEGER" property="oiId" />
     <result column="b_id" jdbcType="INTEGER" property="bId" />
-    <result column="u_id" jdbcType="INTEGER" property="uId" />
+    <result column="o_id" jdbcType="INTEGER" property="oId" />
     <result column="count" jdbcType="INTEGER" property="count" />
     <result column="origin_price" jdbcType="DECIMAL" property="originPrice" />
   </resultMap>
   <sql id="Base_Column_List">
-    oi_id, b_id, u_id, `count`, origin_price
+    oi_id, b_id, o_id, `count`, origin_price
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -17,14 +17,21 @@
     from order_info
     where oi_id = #{oiId,jdbcType=INTEGER}
   </select>
+  <select id="selectByOrderId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from order_info
+    where o_id = #{id,jdbcType=INTEGER}
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from order_info
     where oi_id = #{oiId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="oi_id" keyProperty="oiId" parameterType="com.ex.bookshop.pojo.entity.OrderInfo" useGeneratedKeys="true">
-    insert into order_info (b_id, u_id, `count`, 
+    insert into order_info (b_id, o_id, `count`,
       origin_price)
-    values (#{bId,jdbcType=INTEGER}, #{uId,jdbcType=INTEGER}, #{count,jdbcType=INTEGER}, 
+    values (#{bId,jdbcType=INTEGER}, #{oId,jdbcType=INTEGER}, #{count,jdbcType=INTEGER},
       #{originPrice,jdbcType=DECIMAL})
   </insert>
   <insert id="insertSelective" keyColumn="oi_id" keyProperty="oiId" parameterType="com.ex.bookshop.pojo.entity.OrderInfo" useGeneratedKeys="true">
@@ -33,8 +40,8 @@
       <if test="bId != null">
         b_id,
       </if>
-      <if test="uId != null">
-        u_id,
+      <if test="oId != null">
+        o_id,
       </if>
       <if test="count != null">
         `count`,
@@ -47,8 +54,8 @@
       <if test="bId != null">
         #{bId,jdbcType=INTEGER},
       </if>
-      <if test="uId != null">
-        #{uId,jdbcType=INTEGER},
+      <if test="oId != null">
+        #{oId,jdbcType=INTEGER},
       </if>
       <if test="count != null">
         #{count,jdbcType=INTEGER},
@@ -64,8 +71,8 @@
       <if test="bId != null">
         b_id = #{bId,jdbcType=INTEGER},
       </if>
-      <if test="uId != null">
-        u_id = #{uId,jdbcType=INTEGER},
+      <if test="oId != null">
+        o_id = #{oId,jdbcType=INTEGER},
       </if>
       <if test="count != null">
         `count` = #{count,jdbcType=INTEGER},
@@ -79,7 +86,7 @@
   <update id="updateByPrimaryKey" parameterType="com.ex.bookshop.pojo.entity.OrderInfo">
     update order_info
     set b_id = #{bId,jdbcType=INTEGER},
-      u_id = #{uId,jdbcType=INTEGER},
+      o_id = #{oId,jdbcType=INTEGER},
       `count` = #{count,jdbcType=INTEGER},
       origin_price = #{originPrice,jdbcType=DECIMAL}
     where oi_id = #{oiId,jdbcType=INTEGER}
