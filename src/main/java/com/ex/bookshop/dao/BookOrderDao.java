@@ -22,4 +22,6 @@ public interface BookOrderDao {
     BookOrder selectByUidAndCreateTime(Integer uId, String createTime);
 
     List<BookOrder> selectUncheckedOrder();
+
+    List<BookOrder> selectByUid(Integer userid);
 }

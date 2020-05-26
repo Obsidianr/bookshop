@@ -13,7 +13,7 @@
     <result column="finish_time" jdbcType="VARCHAR" property="finishTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    o_id, u_id, consignee, payment, `create_time`, consignee_adress, consignee_tel, finish_time
+    o_id, u_id, consignee, payment, `create_time`, consignee_adress, consignee_tel, finish_time, state
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -21,6 +21,14 @@
     from book_order
     where o_id = #{oId,jdbcType=INTEGER}
   </select>
+
+  <select id="selectByUid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from book_order
+    where u_id = #{userid,jdbcType=INTEGER}
+  </select>
+
 
   <select id="selectByUidAndCreateTime"  resultMap="BaseResultMap">
     select

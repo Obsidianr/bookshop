@@ -17,6 +17,7 @@
 <div class="layui-row" style="margin-top: 20px">
     <div class="layui-col-xs6 layui-col-md10 layui-col-md-offset2 " >
        <div style="display: flex;justify-content: center;margin-top: 13%">${Msg}</div>
+        <a href="/">返回首页</a>
     </div>
 </div>
 

@@ -1,6 +1,7 @@
 package com.ex.bookshop.controller;
 
 import com.ex.bookshop.pojo.entity.Administrator;
+import com.ex.bookshop.pojo.entity.Users;
 import com.ex.bookshop.service.AdminService;
 import com.ex.bookshop.service.ShopCartService;
 import com.ex.bookshop.service.UserService;
@@ -61,10 +62,11 @@ public class LoginController {
 
         //判断管理员或用户登录
         if(admin == null){
-            Integer userid = userService.login(phone,password);
-            if(userid != null){
-                session.setAttribute("userid",userid);
-                session.setAttribute("shopCount",shopCartService.getShopCount(userid));
+            Users user = userService.login(phone,password);
+            if(user != null){
+                session.setAttribute("userid",user.getId());
+                session.setAttribute("userName",user.getName());
+                session.setAttribute("shopCount",shopCartService.getShopCount(user.getId()));
                 session.setMaxInactiveInterval(1000);
                 return "index";
             }else{

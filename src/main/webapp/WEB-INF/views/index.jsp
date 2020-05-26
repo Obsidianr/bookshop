@@ -21,7 +21,7 @@
     }
 </style>
 <body>
-<jsp:include page="front/frontTop.jsp"></jsp:include>
+<jsp:include page="front/frontTop.jsp" flush="true"></jsp:include>
 <div style="display: flex;margin: 20px 150px;" >
     <div id="booktype" style="width: 20%;border: solid lightgray 1px;background: #9F9F9F">
         <div class="typeBtn" id = "type-1" style="padding: 10px; text-align: center; border: solid lightgray 1px" ><h3>教  育</h3></div>

@@ -44,6 +44,17 @@
     </foreach>
   </select>
 
+
+  <select id="selectByPrimaryKeysOrderInfo" parameterType="com.ex.bookshop.pojo.entity.OrderInfo"  resultMap="BaseResultMap">
+    select
+    *
+    from book  where b_id in
+    <foreach collection="ids" open="(" close=")" separator="," item="orderInfoList">
+      #{orderInfoList.bId}
+    </foreach>
+  </select>
+
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from book
     where b_id = #{bId,jdbcType=INTEGER}

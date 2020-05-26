@@ -149,9 +149,10 @@ public class shopCartController {
         receiver.setAdress(adress);
         receiver.setName(name);
         receiver.setTel(tel);
-        boolean res = shopCartService.GenerateOrder(receiver, (ArrayList<ShopcartItem>)session.getAttribute("billList") ,(double)session.getAttribute("sum"));
+        Integer oid = shopCartService.GenerateOrder(receiver, (ArrayList<ShopcartItem>)session.getAttribute("billList") ,(double)session.getAttribute("sum"));
         session.setAttribute("shopCount",shopCartService.getShopCount((Integer) session.getAttribute("userid")));
-        if(res){
+        if(oid != null){
+            model.addAttribute("oid",oid);
             model.addAttribute("cost",(double)session.getAttribute("sum"));
             return "front/paymentPage";
         }else {
@@ -159,4 +160,18 @@ public class shopCartController {
             return "front/errorPage";
         }
     }
+
+    @RequestMapping("payment")
+    public String payment(Integer oid,Model model){
+        boolean res = shopCartService.pay(oid);
+        if(res){
+            model.addAttribute("Msg","支付成功！");
+            return "front/errorPage";
+        }else{
+            model.addAttribute("Msg","支付失败！");
+            return "front/errorPage";
+        }
+
+    }
+
 }

@@ -3,6 +3,7 @@ package com.ex.bookshop.service;
 import com.ex.bookshop.pojo.entity.Book;
 import com.ex.bookshop.pojo.entity.Users;
 import com.ex.bookshop.pojo.vo.ShopcartItem;
+import com.ex.bookshop.pojo.vo.UserOrder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.List;
  * @create: 2020-05-04 20:54
  **/
 public interface UserService {
-    Integer login(String phone, String password);
+    Users login(String phone, String password);
 
     boolean addUser(Users user);
 
@@ -26,4 +27,5 @@ public interface UserService {
     boolean updateUserById(Users user);
 
 
+    List<UserOrder> selectOrderByUid(Integer userid);
 }

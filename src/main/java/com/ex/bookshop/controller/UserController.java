@@ -1,8 +1,11 @@
 package com.ex.bookshop.controller;
 
 import com.ex.bookshop.pojo.entity.Book;
+import com.ex.bookshop.pojo.entity.BookOrder;
+import com.ex.bookshop.pojo.entity.OrderInfo;
 import com.ex.bookshop.pojo.entity.Users;
 import com.ex.bookshop.pojo.vo.ShopcartItem;
+import com.ex.bookshop.pojo.vo.UserOrder;
 import com.ex.bookshop.service.UserService;
 import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.stereotype.Controller;
@@ -123,6 +126,29 @@ public class UserController {
             modelAndView.addObject("Msg","<script>alert('修改失败！');</script>");
             return modelAndView;
         }
+    }
+
+    @RequestMapping("userHomePage")
+    public String userHome(HttpSession session,Model model){
+        List<UserOrder> orders = userService.selectOrderByUid((Integer)session.getAttribute("userid"));
+        List<UserOrder> unPayorders = new ArrayList<>();
+        List<UserOrder> unConfirmorders = new ArrayList<>();
+        List<UserOrder> finishedorders = new ArrayList<>();
+        for (UserOrder uo: orders) {
+            if(uo.getState() == 1){
+                unPayorders.add(uo);
+            }
+            if(uo.getState() == 2){
+                unConfirmorders.add(uo);
+            }
+            if(uo.getState() == 3){
+                finishedorders.add(uo);
+            }
+        }
+        model.addAttribute("unPayorders",unPayorders);
+        model.addAttribute("unConfirmorders",unConfirmorders);
+        model.addAttribute("finishedorders",finishedorders);
+        return "front/userHome";
     }
 
 

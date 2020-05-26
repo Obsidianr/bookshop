@@ -50,8 +50,7 @@
     layui.use(['layer'], function(){
         var layer = layui.layer
         $("#pay").click( function () {
-            alert("付款成功！返回首页");
-            location.href="/"
+            location.href="payment?id="+${oid}
         });
         $("#cancel").click( function () {
             alert("取消付款！返回首页");

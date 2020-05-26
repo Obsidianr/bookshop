@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN"
+        "http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd">
+<taglib>
+    <tlib-version>1.0</tlib-version><!-- 标签库版本 -->
+    <jsp-version>1.2</jsp-version>  <!-- 标签库要求的JSP规范版本 -->
+    <short-name>mytag</short-name>   <!-- JSP页面编写工具可以用来创建助记名的可选名字 -->
+    <!--
+         为自定义标签库设置一个uri，uri以/开头，/后面的内容随便写，如这里的/gacl ，
+         在Jsp页面中引用标签库时，需要通过uri找到标签库
+         在Jsp页面中就要这样引入标签库：
+         <%@taglib uri="/security/encrypt" prefix="encrypt"%>
+     -->
+    <!-- <uri>/security/encrypt</uri> -->
+    <tag>
+        <name>orderItem</name>
+        <tag-class>com.ex.bookshop.pojo.tag.OrderItemTag</tag-class>
+        <body-content>scriptless</body-content>
+        <attribute>
+            <name>books</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+</taglib>

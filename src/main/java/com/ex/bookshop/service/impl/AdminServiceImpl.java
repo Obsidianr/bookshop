@@ -107,7 +107,7 @@ public class AdminServiceImpl implements AdminService {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  // 设置日期格式
             String finishTime = simpleDateFormat.format(new Date());
             BookOrder bookOrder = bookOrderDao.selectByPrimaryKey(id);
-            bookOrder.setState(2);
+            bookOrder.setState(3);
             bookOrder.setFinishTime(finishTime);
             bookOrderDao.updateByPrimaryKey(bookOrder);
             return true;

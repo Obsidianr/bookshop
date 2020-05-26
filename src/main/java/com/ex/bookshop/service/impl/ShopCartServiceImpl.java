@@ -1,5 +1,6 @@
 package com.ex.bookshop.service.impl;
 
+import com.ex.bookshop.dao.BookDao;
 import com.ex.bookshop.dao.BookOrderDao;
 import com.ex.bookshop.dao.OrderInfoDao;
 import com.ex.bookshop.dao.ShopCarDao;
@@ -124,7 +125,7 @@ public class ShopCartServiceImpl implements ShopCartService {
     }
 
     @Override
-    public boolean GenerateOrder(Users receiver, ArrayList<ShopcartItem> billList,  double cost) {
+    public Integer GenerateOrder(Users receiver, ArrayList<ShopcartItem> billList,  double cost) {
         try{
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  // 设置日期格式
             String createTime = simpleDateFormat.format(new Date());
@@ -147,9 +148,28 @@ public class ShopCartServiceImpl implements ShopCartService {
                 orderInfoDao.insert(orderInfo);
                 shopCartService.delShopItemById(s.getCarId());
             }
-            return true;
+            return bookOrder.getoId();
         }catch (Exception e){
             e.printStackTrace();
+            return null;
+        }
+
+    }
+
+    /**
+     * 支付金额
+     * @param oid
+     * @return
+     */
+    @Override
+    public boolean pay(Integer oid) {
+        try {
+            BookOrder bookOrder = bookOrderDao.selectByPrimaryKey(oid);
+            bookOrder.setState(2);
+            bookOrderDao.updateByPrimaryKey(bookOrder);
+            return true;
+
+        }catch (Exception e){
             return false;
         }
 

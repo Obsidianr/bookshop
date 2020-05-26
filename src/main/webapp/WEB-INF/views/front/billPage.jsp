@@ -46,8 +46,6 @@
             <div style="text-align: center;background:#e4e4e4">
                 总计：<span style="font-size: x-large;color: red;padding: 10px;margin: 10px">¥${sum}</span>
             </div>
-
-
             <div > <button class="layui-btn layui-btn-danger" id="submit" style="background: red;width: 100%">提交订单</button></div>
         </div>
     </div>

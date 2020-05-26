@@ -1,12 +1,9 @@
 package com.ex.bookshop.service.impl;
 
-import com.ex.bookshop.dao.BookDao;
-import com.ex.bookshop.dao.ShopCarDao;
-import com.ex.bookshop.dao.UsersDao;
-import com.ex.bookshop.pojo.entity.Book;
-import com.ex.bookshop.pojo.entity.ShopCar;
-import com.ex.bookshop.pojo.entity.Users;
+import com.ex.bookshop.dao.*;
+import com.ex.bookshop.pojo.entity.*;
 import com.ex.bookshop.pojo.vo.ShopcartItem;
+import com.ex.bookshop.pojo.vo.UserOrder;
 import com.ex.bookshop.service.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -28,6 +25,13 @@ public class UserServiceImpl implements UserService {
     @Resource
     UsersDao usersDao;
 
+    @Resource
+    BookOrderDao bookOrderDao;
+    @Resource
+    OrderInfoDao orderInfoDao;
+    @Resource
+    BookDao bookDao;
+
 
     /**
      * 验证用户是否存在
@@ -36,13 +40,13 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public Integer login(String phone, String password) {
+    public Users login(String phone, String password) {
         Users user =  usersDao.selectBytel(phone);
         if(user == null){
             return null;
         }else{
             if(user.getPassword().equals(password)){
-                return user.getId();
+                return user;
             }
         }
         return null;
@@ -112,6 +116,38 @@ public class UserServiceImpl implements UserService {
         }else{
             return false;
         }
+    }
+
+    @Override
+    public List<UserOrder> selectOrderByUid(Integer userid) {
+        List<UserOrder> userOrders = new ArrayList<>();
+        List<BookOrder> bookOrders = bookOrderDao.selectByUid(userid);
+        for(BookOrder bo: bookOrders){
+
+            UserOrder userOrder = new UserOrder();
+            userOrder.setConsignee(bo.getConsignee());
+            userOrder.setConsigneeAdress(bo.getConsigneeAdress());
+            userOrder.setConsigneeTel(bo.getConsigneeTel());
+            userOrder.setcreateTime(bo.getcreateTime());
+            userOrder.setFinishTime(bo.getFinishTime());
+            userOrder.setoId(bo.getoId());
+            userOrder.setPayment(bo.getPayment());
+            userOrder.setState(bo.getState());
+            userOrder.setuId(bo.getuId());
+            List<OrderInfo> orderInfos = orderInfoDao.selectByOrderId(bo.getoId());
+            List<Book> bookList = bookDao.selectByPrimaryKeysOrderInfo(orderInfos);
+            for (OrderInfo o:orderInfos) {
+                for (Book b: bookList) {
+                    if(b.getbId() == o.getbId()){
+                        b.setStock(o.getCount());
+                        b.setPrice(o.getOriginPrice());
+                    }
+                }
+            }
+            userOrder.setBooks(bookList);
+            userOrders.add(userOrder);
+        }
+        return userOrders;
     }
 
 

@@ -14,5 +14,7 @@ public interface ShopCartService {
 
     Integer getShopCount(Integer userid);
 
-    boolean GenerateOrder(Users receiver, ArrayList<ShopcartItem> billList,  double cost);
+    Integer GenerateOrder(Users receiver, ArrayList<ShopcartItem> billList,  double cost);
+
+    boolean pay(Integer oid);
 }
