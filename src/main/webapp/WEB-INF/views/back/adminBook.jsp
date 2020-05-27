@@ -67,7 +67,7 @@
         location.href = "updateBookPage?id="+id;
     }
     function bookDetail(id) {
-        location.href = "bookDetail?id="+id;
+        location.href = "sellHistoryPage?id="+id;
     }
 </script>
 

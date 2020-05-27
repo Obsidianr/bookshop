@@ -20,4 +20,6 @@ public interface OrderInfoDao {
     int updateByPrimaryKey(OrderInfo record);
 
     List<OrderInfo> selectByOrderId(Integer id);
+
+    List<OrderInfo> selectByBid(Integer id);
 }

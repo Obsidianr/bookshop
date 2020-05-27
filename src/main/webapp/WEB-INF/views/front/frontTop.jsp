@@ -36,8 +36,10 @@
         <div id="loginBtn" onclick="window.location='loginPage'" style=" width: 50px;text-align: center;background: darkgray;border: solid lightgray 1px;padding: 5px;margin-left: 30px;margin-right: 30px">
             登录
         </div>
-        <div   style=" text-align: center;padding: 5px;margin-left: 10px;margin-right: 30px;" >
+        <div   style=" text-align: center;padding: 5px;margin-left: 10px;margin-right: 20px;" >
+
             <a id="userName" href="userHomePage"> </a>
+            <a id="exit" href="exit" hidden style="color: #FFB800;margin-left: 5px"> 退出 </a>
         </div>
     </div>
 
@@ -48,9 +50,12 @@
     layui.use(['layer'], function(){
         $(function () {
             let uid = ${sessionScope.userid};
+            console.log("sss");
+            console.log(uid);
             if(uid != ''){
                 $("#loginBtn").hide();
                 $("#userName").text("欢迎您：${sessionScope.userName}")
+                $("#exit").show();
             }
         })
     })

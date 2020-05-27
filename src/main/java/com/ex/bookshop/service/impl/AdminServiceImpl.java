@@ -5,6 +5,8 @@ import com.ex.bookshop.dao.BookDao;
 import com.ex.bookshop.dao.BookOrderDao;
 import com.ex.bookshop.dao.OrderInfoDao;
 import com.ex.bookshop.pojo.entity.*;
+import com.ex.bookshop.pojo.vo.HistoryRecord;
+import com.ex.bookshop.pojo.vo.UserOrder;
 import com.ex.bookshop.service.AdminService;
 import org.springframework.stereotype.Service;
 
@@ -127,5 +129,24 @@ public class AdminServiceImpl implements AdminService {
             bookList.add(book);
         }
         return bookList;
+    }
+
+    @Override
+    public List<HistoryRecord> selectOrderByBid(Integer id) {
+        List<HistoryRecord> historyRecords = new ArrayList<>();
+        List<OrderInfo> orderInfos = orderInfoDao.selectByBid(id);
+        for (OrderInfo oi: orderInfos) {
+            HistoryRecord hr = new HistoryRecord();
+            BookOrder bookOrder = bookOrderDao.selectByPrimaryKey(oi.getoId());
+            if(bookOrder.getState() == 3){
+                hr.setFinishTime(bookOrder.getFinishTime());
+                hr.setoId(bookOrder.getoId());
+                hr.setCount(oi.getCount());
+                hr.setOriginPrice(oi.getOriginPrice());
+                historyRecords.add(hr);
+            }
+        }
+
+        return historyRecords;
     }
 }

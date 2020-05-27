@@ -170,6 +170,7 @@ public class ShopCartServiceImpl implements ShopCartService {
             return true;
 
         }catch (Exception e){
+            e.printStackTrace();
             return false;
         }
 

@@ -1,10 +1,11 @@
 package com.ex.bookshop.controller;
 
-import com.ex.bookshop.pojo.entity.Administrator;
-import com.ex.bookshop.pojo.entity.Book;
-import com.ex.bookshop.pojo.entity.BookOrder;
-import com.ex.bookshop.pojo.entity.Users;
+import com.ex.bookshop.pojo.entity.*;
+import com.ex.bookshop.pojo.vo.HistoryRecord;
+import com.ex.bookshop.pojo.vo.UserOrder;
 import com.ex.bookshop.service.AdminService;
+import com.ex.bookshop.service.BookService;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +26,9 @@ public class AdminController {
 
     @Resource
     AdminService adminService;
+
+    @Resource
+    BookService bookService;
 
     /**
      * 跳转添加管理员页面
@@ -162,5 +166,20 @@ public class AdminController {
         List<Book> bookList = adminService.getOrderDetailById(id);
         model.addAttribute("bookList",bookList);
         return "back/orderDetailPage";
+    }
+
+    /**
+     * 显示书籍销售历史
+     * @param id
+     * @param model
+     * @return
+     */
+    @RequestMapping("sellHistoryPage")
+    public String sellHistoryPage(Integer id,Model model){
+        Book book = bookService.selectBookById(id);
+        model.addAttribute("book",book);
+        List<HistoryRecord> historyRecords = adminService.selectOrderByBid(id);
+        model.addAttribute("historyRecords",historyRecords);
+        return "back/sellHistory";
     }
 }

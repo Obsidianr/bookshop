@@ -5,13 +5,13 @@ import com.ex.bookshop.pojo.entity.Users;
 import com.ex.bookshop.service.AdminService;
 import com.ex.bookshop.service.ShopCartService;
 import com.ex.bookshop.service.UserService;
+import com.sun.deploy.net.HttpResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -37,8 +37,22 @@ public class LoginController {
      * @return
      */
     @RequestMapping("loginPage")
-    String loginPage(){
-
+    String loginPage(HttpServletRequest request, Model model){
+        String tel = "";
+        String password = "";
+        Cookie[] cookies = request.getCookies();
+        if(cookies != null){
+            for (Cookie c: cookies) {
+                if(c.getName().equals("userTel")){
+                    tel = c.getValue();
+                }
+                if(c.getName().equals("password")){
+                    password = c.getValue();
+                }
+            }
+        }
+        model.addAttribute("userTel",tel);
+        model.addAttribute("password",password);
         return "front/login";
     }
 
@@ -48,13 +62,8 @@ public class LoginController {
      * @return
      */
     @RequestMapping("doLogin")
-    String login(HttpServletRequest httpServletRequest,String phone, String password, String admin, Model model,HttpSession session){
-//        Pattern p = Pattern.compile("^((13[0-9])|(17[0-1,6-8])|(15[^4,\\\\D])|(18[0-9]))\\d{8}$");
-//        Matcher m = p.matcher(phone);
-//        if(!m.matches()){
-//            model.addAttribute("errorMsg", "请输入正确的手机号！");
-//            return "front/login";
-//        }
+    String login(HttpServletResponse response, String phone, String password, String admin, Model model, HttpSession session){
+
         if(password == null || password == ""){
             model.addAttribute("errorMsg", "请输入密码！");
             return "front/login";
@@ -64,6 +73,10 @@ public class LoginController {
         if(admin == null){
             Users user = userService.login(phone,password);
             if(user != null){
+                Cookie cookieTel = new Cookie("userTel",phone);
+                Cookie cookiePassword = new Cookie("password",password);
+                response.addCookie(cookieTel);
+                response.addCookie(cookiePassword);
                 session.setAttribute("userid",user.getId());
                 session.setAttribute("userName",user.getName());
                 session.setAttribute("shopCount",shopCartService.getShopCount(user.getId()));
@@ -77,6 +90,10 @@ public class LoginController {
         }else{
             Administrator administrator = adminService.login(phone,password);
             if(administrator != null){
+                Cookie cookieTel = new Cookie("userTel",phone);
+                Cookie cookiePassword = new Cookie("password",password);
+                response.addCookie(cookieTel);
+                response.addCookie(cookiePassword);
                 Integer checkOrderCount = adminService.getCheckOrderCount();
                 session.setAttribute("checkOrderCount",checkOrderCount);
                 session.setAttribute("adminName",administrator.getName());
@@ -87,5 +104,12 @@ public class LoginController {
                 return "front/login";
             }
         }
+    }
+
+    @RequestMapping("exit")
+    public String exit(HttpSession session){
+
+        session.invalidate();
+        return "index";
     }
 }

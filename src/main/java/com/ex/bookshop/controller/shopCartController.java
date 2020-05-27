@@ -162,8 +162,8 @@ public class shopCartController {
     }
 
     @RequestMapping("payment")
-    public String payment(Integer oid,Model model){
-        boolean res = shopCartService.pay(oid);
+    public String payment(Integer id,Model model){
+        boolean res = shopCartService.pay(id);
         if(res){
             model.addAttribute("Msg","支付成功！");
             return "front/errorPage";

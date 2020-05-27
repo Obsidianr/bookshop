@@ -24,6 +24,13 @@
     where o_id = #{id,jdbcType=INTEGER}
   </select>
 
+  <select id="selectByBid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from order_info
+    where b_id = #{id,jdbcType=INTEGER}
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from order_info
     where oi_id = #{oiId,jdbcType=INTEGER}

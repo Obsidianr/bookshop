@@ -14,7 +14,7 @@
                     <div class="layui-inline">
                         <label class="layui-form-label">手机</label>
                         <div class="layui-input-inline">
-                            <input type="tel" name="phone" lay-verify="phone" class="layui-input">
+                            <input type="tel" name="phone" lay-verify="phone" class="layui-input"  value="${userTel}">
                         </div>
                     </div>
                 </div>
@@ -22,7 +22,7 @@
                     <div class="layui-inline">
                         <label class="layui-form-label">密码</label>
                         <div class="layui-input-inline">
-                            <input type="password" name="password" lay-verify="required" class="layui-input">
+                            <input type="password" name="password" lay-verify="required" class="layui-input" value="${password}">
                         </div>
                     </div>
                 </div>

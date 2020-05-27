@@ -3,6 +3,9 @@ package com.ex.bookshop.service;
 import com.ex.bookshop.pojo.entity.Administrator;
 import com.ex.bookshop.pojo.entity.Book;
 import com.ex.bookshop.pojo.entity.BookOrder;
+import com.ex.bookshop.pojo.entity.OrderInfo;
+import com.ex.bookshop.pojo.vo.HistoryRecord;
+import com.ex.bookshop.pojo.vo.UserOrder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,4 +31,6 @@ public interface AdminService {
     boolean confirmOrder(Integer id);
 
     List<Book> getOrderDetailById(Integer id);
+
+    List<HistoryRecord> selectOrderByBid(Integer id);
 }
