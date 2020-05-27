@@ -92,7 +92,7 @@
                 }
             });
         })
-        layer.msg('hello');
+
     });
 </script>
 <script language="javascript">
