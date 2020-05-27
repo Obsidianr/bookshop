@@ -13,7 +13,7 @@
                 <li class="layui-nav-item">
                     <a href=""><img src="//t.cn/RCzsdCq" class="layui-nav-img">${sessionScope.adminName}</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="index;">退出</a></dd>
+                        <dd><a href="exit;">退出</a></dd>
                     </dl>
                 </li>
             </ul>

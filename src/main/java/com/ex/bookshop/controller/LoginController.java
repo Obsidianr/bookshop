@@ -106,10 +106,40 @@ public class LoginController {
         }
     }
 
+    @RequestMapping("registerPage")
+    public String registerPage(){
+        return "front/register";
+    }
+
+    @RequestMapping("register")
+    public String register(String username, String phone, String password, String address, String gende, Model model){
+        Users user = userService.selectUserByTel(phone);
+        if(user == null){
+            user = new Users();
+            user.setTel(phone);
+            user.setName(username);
+            user.setAdress(address);
+            user.setPassword(password);
+            user.setGende(gende);
+            userService.addUser(user);
+            model.addAttribute("Msg","<script>alert('注册成功');</script>");
+            return "front/login";
+        }else{
+            model.addAttribute("Msg","<script>alert('手机号已存在');</script>");
+            return "front/register";
+        }
+
+    }
+
+    /**
+     * 退出系统
+     * @param session
+     * @return
+     */
     @RequestMapping("exit")
     public String exit(HttpSession session){
-
         session.invalidate();
         return "index";
     }
+
 }

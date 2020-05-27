@@ -6,29 +6,68 @@
 </head>
 <link rel="stylesheet" href="/layui/css/layui.css">
 <script type="text/javascript" src="/layui/layui.js"></script>
-<body >
-<div class="layui-tab">
-    <h2>我的订单</h2>
-    <ul class="layui-tab-title">
-        <li class="layui-this">未付款</li>
-        <li>待确认</li>
-        <li>已完成</li>
-
-    </ul>
-    <div class="layui-tab-content">
-        <div class="layui-tab-item layui-show">内容1</div>
-        <div class="layui-tab-item">内容2</div>
-        <div class="layui-tab-item">内容3</div>
+<body style="background:#393D49">
+<div style="display: flex">
+    <jsp:include page="left.jsp"></jsp:include>
+    <div style="width: 80%">
+        <jsp:include page="top.jsp"></jsp:include>
+        <div style="background: #eaeaea;display: flex;padding-top: 10px;height: 600px;">
+            <form class="layui-form" action="addUser" method="post" >
+                <div style="display: flex;margin-left: 20px ">
+                    <div>
+                        <h2>添加用户</h2>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">昵称</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="name" class="layui-input" lay-verify="required">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">性别</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="gende" class="layui-input" lay-verify="required">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">手机号</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="tel"  class="layui-input" lay-verify="required|phone">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">密码</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="password"  class="layui-input" lay-verify="required">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">地址</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="adress"  class="layui-input" lay-verify="required">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item" style="text-align: center">
+                    <div class="layui-input-block">
+                        <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1">确定添加</button>
+                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                    </div>
+                </div>
+            </form>
+            ${Msg}
+        </div>
     </div>
 </div>
-
-<script>
-    //注意：选项卡 依赖 element 模块，否则无法进行功能性操作
-    layui.use('element', function(){
-        var element = layui.element;
-
-        //…
-    });
-</script>
 </body>
 </html>

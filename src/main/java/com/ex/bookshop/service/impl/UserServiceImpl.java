@@ -150,5 +150,11 @@ public class UserServiceImpl implements UserService {
         return userOrders;
     }
 
+    @Override
+    public Users selectUserByTel(String phone) {
+        Users user =  usersDao.selectBytel(phone);
+        return user;
+    }
+
 
 }

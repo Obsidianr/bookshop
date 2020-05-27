@@ -42,18 +42,22 @@
                 <div class="layui-form-item" align="left">
                     <div class="layui-input-block">
                         <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1" style="margin-right: 15px">登录</button>
-                        <a href="registerPage"> <button  class="layui-btn layui-btn-primary" style="margin-left: 15px" >注册</button> </a>
+                        <button  type="reset" onclick="register()" class="layui-btn layui-btn-primary" style="margin-left: 15px" >注册</button>
                     </div>
                 </div>
             </form>
         </div>
-
+        ${Msg}
     </div>
     <script>
+        function register() {
+            location.href = "registerPage";
+        }
         layui.use(['form', 'layedit', 'laydate'], function() {
             var form = layui.form
                 , layer = layui.layer
                 , layedit = layui.layedit
+
         })
     </script>
     </body>

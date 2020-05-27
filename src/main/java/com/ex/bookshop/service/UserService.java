@@ -28,4 +28,6 @@ public interface UserService {
 
 
     List<UserOrder> selectOrderByUid(Integer userid);
+
+    Users selectUserByTel(String phone);
 }
