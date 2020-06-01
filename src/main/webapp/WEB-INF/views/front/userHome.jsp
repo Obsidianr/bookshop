@@ -15,7 +15,7 @@
         <div class="layui-tab" style="width: 100%">
             <ul class="layui-tab-title">
                 <li class="layui-this">待付款</li>
-                <li>待审批</li>
+                <li>待确认</li>
                 <li>已完成</li>
             </ul>
             <div class="layui-tab-content">

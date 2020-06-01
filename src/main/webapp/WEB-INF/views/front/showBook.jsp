@@ -32,8 +32,8 @@
 
         </div>
         <div style="margin: 10px;display: flex">
-            <div > <button class="layui-btn layui-btn-danger" onclick="shopcart(${book.bId})">加入购物车</button></div>
-            <div style="margin-left: 20px"> <button class="layui-btn layui-btn-danger" onclick="buy(${book.bId})">立即购买</button></div>
+            <div > <button class="layui-btn layui-btn-danger"  id="addToShopcart" onclick="shopcart()">加入购物车</button></div>
+<%--            <div style="margin-left: 20px"> <button class="layui-btn layui-btn-danger" onclick="buy(${book.bId})">立即购买</button></div>--%>
         </div>
     </div>
     <div class="layui-col-xs6 layui-col-md8 layui-col-md-offset2 " >
@@ -41,11 +41,32 @@
     </div>
     ${Msg}
 </div>
-<script>
-function shopcart(bid) {
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="layui/layui.js"></script>
+<script >
+    layui.use(['layer'], function(){
+        var layer = layui.layer
+        $("#addToShopcart").click(function () {
+            let bid = ${book.bId};
+            let stock = ${book.stock};
+            if(stock == 0){
+                layer.open({
+                    title: '提示',
+                    content: '库存不足！'
+                });
+            }else{
+                window.location="addShopToCart?id="+bid;
+            }
+        });
 
-    window.location="addShopToCart?id="+bid
-}
+    })
+
 </script>
+<%--<script>--%>
+<%--    --%>
+<%--function shopcart(bid) {--%>
+<%--    window.location="addShopToCart?id="+bid--%>
+<%--}--%>
+<%--</script>--%>
 </body>
 </html>

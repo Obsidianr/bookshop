@@ -45,7 +45,7 @@ public class BookServiceImpl implements BookService {
         JSONObject resUrl = new JSONObject();
         //指定本地文件夹存储图片
      //   String path = ClassUtils.getDefaultClassLoader().getResource("static").getPath();
-        String path = "H:\\IEDAWorkspace\\bookshop\\src\\main\\resources\\static\\";
+        String path = System.getProperty("user.dir")+ "\\src\\main\\resources\\static\\";
 
         try {
             //将图片保存到static/imgs文件夹里

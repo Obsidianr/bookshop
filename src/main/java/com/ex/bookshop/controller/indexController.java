@@ -15,7 +15,6 @@ import java.util.Date;
 public class indexController {
     @RequestMapping("/")
     public String index(Model model){
-        model.addAttribute("now",new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
         return "index";
     }
 }

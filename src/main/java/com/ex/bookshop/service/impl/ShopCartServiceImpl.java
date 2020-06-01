@@ -36,6 +36,9 @@ public class ShopCartServiceImpl implements ShopCartService {
     @Resource
     OrderInfoDao orderInfoDao;
 
+    @Resource
+    BookDao bookDao;
+
     /**
      * 根据用户id查询其购物车
      * @param userid
@@ -90,6 +93,9 @@ public class ShopCartServiceImpl implements ShopCartService {
     @Override
     public boolean addShopItemToCart(Integer userid, Integer bid) {
         try{
+            Book book = bookDao.selectByPrimaryKey(bid);
+            book.setStock(book.getStock()-1);
+            bookDao.updateByPrimaryKey(book);
             ShopCar shopCar = shopCarDao.selectByUseridAndBid(userid,bid);
             if(shopCar == null){
                 shopCar = new ShopCar();

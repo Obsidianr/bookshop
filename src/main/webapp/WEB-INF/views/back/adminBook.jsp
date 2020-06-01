@@ -44,7 +44,7 @@
                             <div class="layui-btn-group">
                                 <button  class="layui-btn" onclick="bookDetail(${book.bId})">查看</button>
                                 <button  class="layui-btn" onclick="update(${book.bId})">编辑</button>
-                                <button  class="layui-btn" onclick="firm(${book.bId})">删除</button>
+                                <button  class="layui-btn" onclick="firm(${book.bId}, ${book.stock} )">删除</button>
                             </div>
                         </td>
                     </tr>
@@ -55,12 +55,19 @@
         </div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="layui/layui.js"></script>
 <script language="javascript">
-    function firm(id) {//利用对话框返回的值 （true 或者 false）
-        if (confirm("确定删除")) {//如果是true ，那么就把页面转向https://blog.csdn.net/h2503652646
-            location.href = "delBook?id="+id;
-        } else {
-            alert("取消删除");
+
+    function firm(id, stock) {
+        if(stock > 0){
+            alert("库存未清空");
+        }else{
+            if (confirm("确定删除")) {
+                location.href = "delBook?id="+id;
+            } else {
+                alert("取消删除");
+            }
         }
     }
     function update(id) {
